@@ -4,10 +4,13 @@
     <mat-card-content>
       <mat-form-field>
         <mat-label>Select type of trainig</mat-label>
-        <mat-select name="traing">
-          <mat-option value="crunches"> Crunches </mat-option>
-          <mat-option value="ex2"> Ex2 </mat-option>
-          <mat-option value="ex3"> Ex3 </mat-option>
+        <mat-select
+          name="training"
+          (selectionChange)="getSelectedExercise($event)"
+        >
+          <mat-option [value]="exercise.id" *ngFor="let exercise of exercises">
+            {{ exercise.name }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-card-content>

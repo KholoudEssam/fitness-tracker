@@ -1,6 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
+import { Exercise } from 'src/app/shared/models/exercise.model';
 
 @Component({
   selector: 'app-current-training',
@@ -9,7 +10,7 @@ import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 })
 export class CurrentTrainingComponent implements OnInit {
   @Output() stopTraining = new EventEmitter<void>();
-
+  @Input() chosenExercise: Exercise;
   progress: number = 0;
   timer: any;
   constructor(private dialog: MatDialog) {}
@@ -20,8 +21,9 @@ export class CurrentTrainingComponent implements OnInit {
 
   startOrResumeCounting() {
     this.timer = setInterval(() => {
-      this.progress += 5;
-      if (this.progress === 100) clearInterval(this.timer);
+      this.progress += 1;
+      if (this.progress === this.chosenExercise.duration)
+        clearInterval(this.timer);
     }, 1000);
   }
 

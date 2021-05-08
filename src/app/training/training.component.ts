@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Exercise } from '../shared/models/exercise.model';
 
 @Component({
   selector: 'app-training',
@@ -6,8 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./training.component.css'],
 })
 export class TrainingComponent implements OnInit {
-  isGoingTraining: false;
+  isGoingTraining = false;
+  selectedEx: Exercise;
   constructor() {}
 
   ngOnInit(): void {}
+
+  getSelectedExe(ex: Exercise) {
+    this.selectedEx = ex;
+    this.isGoingTraining = true;
+  }
 }

@@ -1,7 +1,7 @@
 <mat-tab-group *ngIf="!isGoingTraining">
   <mat-tab label="New Training">
     <app-new-training
-      (startTrainingVal)="isGoingTraining = true"
+      (startTrainingVal)="getSelectedExe($event)"
     ></app-new-training>
   </mat-tab>
   <mat-tab label="Past Trainings">
@@ -11,5 +11,6 @@
 
 <app-current-training
   *ngIf="isGoingTraining"
+  [chosenExercise]="selectedEx"
   (stopTraining)="isGoingTraining = false"
 ></app-current-training>
