@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -9,7 +10,16 @@ import { MatSidenav } from '@angular/material/sidenav';
 export class SidenavListComponent implements OnInit {
   @Input() navRef: MatSidenav;
 
-  constructor() {}
+  isAuth = false;
 
-  ngOnInit(): void {}
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.authService.isLoggedIn.subscribe((auth) => (this.isAuth = auth));
+  }
+
+  logout() {
+    this.navRef.close();
+    this.authService.logout();
+  }
 }

@@ -10,8 +10,17 @@
     <a routerLink="/">Fitness Tracker</a>
   </h1>
   <ul [style.display]="mobileQuery.matches ? 'none' : 'flex'">
-    <li><a routerLink="/login">Login</a></li>
-    <li><a routerLink="/signup">Signup</a></li>
-    <li><a routerLink="/training">Trainings</a></li>
+    <li routerLink="/login" *ngIf="!isAuth">
+      <a>Login</a>
+    </li>
+    <li routerLink="/signup" *ngIf="!isAuth">
+      <a>Signup</a>
+    </li>
+    <li routerLink="/training" *ngIf="isAuth">
+      <a>Trainings</a>
+    </li>
+    <li (click)="logout()" *ngIf="isAuth">
+      <a>Logout</a>
+    </li>
   </ul>
 </mat-toolbar>
