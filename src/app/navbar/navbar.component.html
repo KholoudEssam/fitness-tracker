@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+  <button
+    mat-icon-button
+    (click)="navRef.toggle()"
+    [style.display]="mobileQuery.matches ? 'inline-block' : 'none'"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1>
+    <a routerLink="/">Fitness Tracker</a>
+  </h1>
+  <ul [style.display]="mobileQuery.matches ? 'none' : 'flex'">
+    <li><a routerLink="/login">Login</a></li>
+    <li><a routerLink="/signup">Signup</a></li>
+    <li><a routerLink="/training">Trainings</a></li>
+  </ul>
+</mat-toolbar>

@@ -1,1 +1,11 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav #snav>
+    <app-sidenav-list [navRef]="snav"></app-sidenav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-navbar [navRef]="snav"></app-navbar>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

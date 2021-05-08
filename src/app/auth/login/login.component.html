@@ -1,1 +1,42 @@
-<p>login works!</p>
+<form #f="ngForm" (ngSubmit)="onFormSubmit(f)">
+  <mat-form-field>
+    <input
+      matInput
+      type="email"
+      placeholder="E-mail"
+      name="email"
+      ngModel
+      required
+      email
+      #email="ngModel"
+    />
+    <mat-error *ngIf="email.errors?.required"> Email is required </mat-error>
+    <mat-error *ngIf="email.errors?.email"> Enter a valid email </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      type="password"
+      placeholder="Password"
+      name="password"
+      ngModel
+      required
+      minlength="6"
+      #password="ngModel"
+    />
+    <mat-hint align="end"> {{ password.value?.length }} / 6</mat-hint>
+    <mat-hint>Should be at least 6 characters long.</mat-hint>
+    <mat-error *ngIf="password.errors?.required">
+      Password is required
+    </mat-error>
+  </mat-form-field>
+
+  <button
+    type="submit"
+    mat-raised-button
+    color="primary"
+    [disabled]="f.invalid"
+  >
+    Login
+  </button>
+</form>

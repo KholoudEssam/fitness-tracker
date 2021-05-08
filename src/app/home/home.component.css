@@ -1,0 +1,23 @@
+h1 {
+  text-transform: uppercase;
+}
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+section {
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+@media (max-width: 728px) {
+  .home {
+    flex-direction: column;
+  }
+  section {
+    margin: 0.5rem 0;
+    padding: 0;
+  }
+}
