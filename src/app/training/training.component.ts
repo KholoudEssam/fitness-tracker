@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Exercise } from '../shared/models/exercise.model';
+import { Subscription } from 'rxjs';
+import { ExerciseService } from '../shared/services/exercise.service';
 
 @Component({
   selector: 'app-training',
@@ -7,14 +8,18 @@ import { Exercise } from '../shared/models/exercise.model';
   styleUrls: ['./training.component.css'],
 })
 export class TrainingComponent implements OnInit {
+  sub: Subscription;
   isGoingTraining = false;
-  selectedEx: Exercise;
-  constructor() {}
+  constructor(private exerciseService: ExerciseService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.sub = this.exerciseService.currentExercise.subscribe((ex) => {
+      if (ex) this.isGoingTraining = true;
+      else this.isGoingTraining = false;
+    });
+  }
 
-  getSelectedExe(ex: Exercise) {
-    this.selectedEx = ex;
-    this.isGoingTraining = true;
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }

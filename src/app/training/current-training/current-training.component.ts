@@ -1,7 +1,9 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 import { Exercise } from 'src/app/shared/models/exercise.model';
+import { ExerciseService } from 'src/app/shared/services/exercise.service';
 
 @Component({
   selector: 'app-current-training',
@@ -9,22 +11,33 @@ import { Exercise } from 'src/app/shared/models/exercise.model';
   styleUrls: ['./current-training.component.css'],
 })
 export class CurrentTrainingComponent implements OnInit {
-  @Output() stopTraining = new EventEmitter<void>();
-  @Input() chosenExercise: Exercise;
   progress: number = 0;
   timer: any;
-  constructor(private dialog: MatDialog) {}
+  sub: Subscription;
+  chosenExercise: Exercise;
+  constructor(
+    private dialog: MatDialog,
+    private exerciseService: ExerciseService
+  ) {}
 
   ngOnInit(): void {
-    this.startOrResumeCounting();
+    this.sub = this.exerciseService.currentExercise.subscribe((ex) => {
+      if (!ex) return;
+      this.chosenExercise = ex;
+      this.startOrResumeCounting();
+      console.log('object');
+    });
   }
 
   startOrResumeCounting() {
+    const step = (this.chosenExercise.duration / 100) * 1000;
     this.timer = setInterval(() => {
-      this.progress += 1;
-      if (this.progress === this.chosenExercise.duration)
+      if (this.progress >= 100) {
         clearInterval(this.timer);
-    }, 1000);
+        this.exerciseService.completeExercise();
+      }
+      this.progress += 1;
+    }, step);
   }
 
   stopExrecise() {
@@ -34,7 +47,17 @@ export class CurrentTrainingComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((res) => {
-      !res ? this.startOrResumeCounting() : this.stopTraining.emit();
+      if (res) {
+        this.exerciseService.cancleExercise(this.progress);
+      } else {
+        this.startOrResumeCounting();
+      }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+    clearInterval(this.timer);
+    console.log('current training destroyed');
   }
 }
