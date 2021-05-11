@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Exercise } from '../models/exercise.model';
 
 @Injectable({
@@ -32,7 +32,6 @@ export class ExerciseService {
       state: 'completed',
       date: new Date(),
     });
-
     this.currentExercise.next(null);
   }
   cancleExercise(progress: number) {
@@ -44,7 +43,6 @@ export class ExerciseService {
       duration: duration * (progress / 100),
       calories: calories * (progress / 100),
     });
-
     this.currentExercise.next(null);
   }
 }

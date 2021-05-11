@@ -1,0 +1,38 @@
+.no-data {
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
+}
+.table-wrapper {
+  padding: 0 2rem;
+}
+table {
+  width: 100%;
+}
+.filter-wrapper {
+  width: 80%;
+  margin: 1rem auto;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+/* 
+td,
+th {
+  width: 20%;
+} */
+
+@media (max-width: 480px) {
+  .filter-wrapper {
+    width: 88%;
+    margin: 0.5rem auto;
+  }
+  .table-wrapper {
+    padding: 0 10px;
+  }
+  th.mat-header-cell {
+    padding: 0 3px;
+  }
+}
