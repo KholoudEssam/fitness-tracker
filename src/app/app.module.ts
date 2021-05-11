@@ -17,6 +17,10 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidenavListComponent } from './navbar/sidenav-list/sidenav-list.component';
 import { DialogComponent } from './shared/dialog/dialog.component';
 
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +41,8 @@ import { DialogComponent } from './shared/dialog/dialog.component';
     FormsModule,
     AppRoutingModule,
     AngularMaterialModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

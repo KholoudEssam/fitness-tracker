@@ -13,7 +13,9 @@ export class NewTrainingComponent implements OnInit {
   constructor(private exerciseService: ExerciseService) {}
 
   ngOnInit(): void {
-    this.exercises = this.exerciseService.getExercises();
+    this.exerciseService.getExercises().subscribe((res: Exercise[]) => {
+      this.exercises = res;
+    });
   }
 
   onSubmitForm(form: NgForm) {

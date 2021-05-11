@@ -25,7 +25,6 @@ export class CurrentTrainingComponent implements OnInit {
       if (!ex) return;
       this.chosenExercise = ex;
       this.startOrResumeCounting();
-      console.log('object');
     });
   }
 
@@ -34,7 +33,7 @@ export class CurrentTrainingComponent implements OnInit {
     this.timer = setInterval(() => {
       if (this.progress >= 100) {
         clearInterval(this.timer);
-        this.exerciseService.completeExercise();
+        return this.exerciseService.completeExercise();
       }
       this.progress += 1;
     }, step);
